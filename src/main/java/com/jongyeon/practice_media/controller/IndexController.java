@@ -16,4 +16,10 @@ public class IndexController {
         model.addAttribute("imageDir","/images/test.png");
         return "image";
     }
+
+    @GetMapping("/video")
+    public String videoView(Model model){
+        model.addAttribute("videoDir","/videos/test.mp4");
+        return "video";
+    }
 }
