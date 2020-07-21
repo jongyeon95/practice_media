@@ -5,6 +5,10 @@
     <title>home</title>
 </head>
 <body>
+    <tr th:each="list : ${list}">
+        <td th:text="${list.getOriginalFileName()}"></td>
+        <td th:text="${list.getMediaType()}"></td>
+    </tr><br>
     <a href="/image">image</a><br>
     <a href="/video">video</a><br>
     <a href="/">streaming</a><br>

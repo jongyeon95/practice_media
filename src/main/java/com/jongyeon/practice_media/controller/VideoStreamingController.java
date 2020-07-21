@@ -31,7 +31,7 @@ public class VideoStreamingController {
             throws UnsupportedEncodingException, IOException {
 
 
-        File file = new File(videoLocation+"/test.mp4");
+        File file = new File(videoLocation+"/"+name+".mp4");
         RandomAccessFile randomFile = new RandomAccessFile(file, "r");
         long rangeStart = 0; //요청 범위의 시작 위치
         long rangeEnd = 0;  //요청 범위의 끝 위치
