@@ -22,7 +22,7 @@ import java.nio.file.Paths;
 @RestController
 public class VideoStreamingController {
 
-    
+
     @GetMapping("/stream/{name}")
     public String testStreaming(@PathVariable("name") String name
             , HttpServletRequest request, HttpServletResponse response)
