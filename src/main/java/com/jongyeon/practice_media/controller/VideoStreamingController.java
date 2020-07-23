@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.*;
+import org.springframework.data.repository.init.ResourceReader;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,17 +22,16 @@ import java.nio.file.Paths;
 @RestController
 public class VideoStreamingController {
 
-
-    @Value("${video.location}")
-    private String videoLocation;
-
+    
     @GetMapping("/stream/{name}")
     public String testStreaming(@PathVariable("name") String name
             , HttpServletRequest request, HttpServletResponse response)
             throws UnsupportedEncodingException, IOException {
 
 
-        File file = new File(videoLocation+"/"+name+".mp4");
+        File path=new File("src\\main\\resources\\static\\videos");
+        File file = new File(path.getAbsolutePath()+"\\"+name+".mp4");
+
         RandomAccessFile randomFile = new RandomAccessFile(file, "r");
         long rangeStart = 0; //요청 범위의 시작 위치
         long rangeEnd = 0;  //요청 범위의 끝 위치

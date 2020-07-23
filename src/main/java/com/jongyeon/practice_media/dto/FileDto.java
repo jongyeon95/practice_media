@@ -9,5 +9,4 @@ public class FileDto {
     private String originalFileName;
     private String mediaType;
 
-
 }
