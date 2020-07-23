@@ -1,5 +1,6 @@
 package com.jongyeon.practice_media.controller;
 
+import jdk.internal.org.jline.utils.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,12 @@ public class FileUploadController {
         try {
             InputStream fileStream = multipartFile.getInputStream();
             FileUtils.copyInputStreamToFile(fileStream, targetFile);
+            log.info("Type: "+multipartFile.getContentType());
+            log.info("Origin Name: "+multipartFile.getOriginalFilename());
+            log.info("Name: "+multipartFile.getName());
+            log.info("Size: "+multipartFile.getSize());
+
+
         } catch (IOException e) {
             FileUtils.deleteQuietly(targetFile);
             e.printStackTrace();
