@@ -5,6 +5,23 @@
     <title>image</title>
 </head>
 <body>
-<img th:src="${imageDir}">
+<table th:border="1px">
+    <thead>
+    <tr>
+        <td>id</td>
+        <td>파일명</td>
+        <td>분류</td>
+        <td>확장자</td>
+    </tr>
+
+    </thead>
+    <tr th:each="list : ${list}">
+        <td th:text="${list.getIdx()}"></td>
+        <td th:text="${list.getOriginalFileName()}"></td>
+        <td th:text="${list.getMediaType()}"></td>
+        <td th:text="${list.getFileExtension()}"></td>
+        <td><img th:src="@{/images/}+${list.getStoredFileName()}"></td>
+    </tr><br>
+</table>
 </body>
 </html>

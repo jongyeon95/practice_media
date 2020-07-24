@@ -24,7 +24,8 @@ public class IndexController {
 
     @GetMapping("/image")
     public String imageView(Model model){
-        model.addAttribute("imageDir","/images/test.png");
+        List<MediaFile> list= fileService.findAllByMediaType("image");
+        model.addAttribute("list",list);
         return "image";
     }
 

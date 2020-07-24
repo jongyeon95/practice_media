@@ -26,6 +26,9 @@ public class MediaFile {
         @Column(nullable=false)
         private String storedFilePath;
 
+        @Column(nullable = false)
+        private String storedFileName;
+
         @Column(nullable=false)
         private long fileSize;
 
@@ -43,7 +46,7 @@ public class MediaFile {
         private String mediaType;
 
         @Column(nullable = false)
-        private String fileFormat;
+        private String FileExtension;
 
 
     }

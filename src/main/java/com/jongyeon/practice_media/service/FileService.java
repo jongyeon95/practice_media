@@ -29,5 +29,9 @@ public class FileService {
 
     }
 
+    public List<MediaFile> findAllByMediaType(String s){
+        return mediaFileRepository.findAllByMediaType(s);
+    }
+
 
 }

@@ -32,7 +32,7 @@ public class FileUploadController {
     }
 
     @Autowired
-    FileService fileService;
+    private FileService fileService;
 
     @PostMapping("/upload")
     public String uploadFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request){
@@ -60,9 +60,9 @@ public class FileUploadController {
 
         newFileName=Long.toString(System.nanoTime())+"."+originalFileExtension;
         log.info("new file name :"+newFileName);
-        path="src\\main\\resources\\static\\"+mediaType+"s\\"+newFileName;
-        MediaFile mediaFile=new MediaFile().builder().fileFormat(originalFileExtension).fileSize(multipartFile.getSize())
-                .originalFileName(multipartFile.getOriginalFilename()).storedFilePath(path)
+        path="src\\main\\resources\\static\\"+mediaType+"s\\";
+        MediaFile mediaFile=new MediaFile().builder().FileExtension(originalFileExtension).fileSize(multipartFile.getSize())
+                .originalFileName(multipartFile.getOriginalFilename()).storedFilePath(path).storedFileName(newFileName)
                 .mediaType(mediaType).createdDatetime(LocalDateTime.now())
                 .creatorId("admin").build();
 
@@ -70,7 +70,7 @@ public class FileUploadController {
         fileService.save(mediaFile);
         log.info(" file path :"+path);
 
-        File targetFile = new File(path);
+        File targetFile = new File(path+newFileName);
         try {
             InputStream fileStream = multipartFile.getInputStream();
             FileUtils.copyInputStreamToFile(fileStream, targetFile);
