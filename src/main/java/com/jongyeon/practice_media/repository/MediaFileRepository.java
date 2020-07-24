@@ -15,5 +15,8 @@ public interface MediaFileRepository extends JpaRepository<MediaFile,Integer> {
     @Transactional
     List<MediaFile> findAll();
 
+    @Transactional
+    List<MediaFile> findAllByMediaType(String s);
+
 
 }
