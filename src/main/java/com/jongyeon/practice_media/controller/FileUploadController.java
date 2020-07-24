@@ -42,6 +42,10 @@ public class FileUploadController {
 
         originalFileExtension= FilenameUtils.getExtension(multipartFile.getOriginalFilename());
         contentType=multipartFile.getContentType();
+
+        if(multipartFile.getSize()<=0)
+            return "redirect:/fileUpload";
+
         if(contentType.contains("image")){
             mediaType="image";
         }
