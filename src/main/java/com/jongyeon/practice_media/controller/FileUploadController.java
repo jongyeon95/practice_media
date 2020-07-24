@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,9 +35,10 @@ public class FileUploadController {
     FileService fileService;
 
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam("file") MultipartFile multipartFile){
+    public String uploadFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request){
         log.info("#############Upload MediaFile#############");
 
+        System.out.println(request.getRemoteAddr());
         String newFileName, originalFileExtension,contentType,mediaType,path;
 
 
