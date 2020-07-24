@@ -33,3 +33,6 @@ out/
 ### VS Code ###
 .vscode/
 /src/main/resources/application_DbInfo.properties
+/src/main/resources/static/videos/
+/src/main/resources/static/images/
+/src/main/resources/static/Unknowns/
