@@ -1,7 +1,6 @@
 package com.jongyeon.practice_media.controller;
 
-import com.jongyeon.practice_media.dto.FileDto;
-import com.jongyeon.practice_media.entity.File;
+import com.jongyeon.practice_media.entity.MediaFile;
 import com.jongyeon.practice_media.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +17,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String Index(Model model){
-        List<File> list= fileService.findAll();
+        List<MediaFile> list= fileService.findAll();
        model.addAttribute("list",list);
         return "index";
     }

@@ -1,12 +1,14 @@
 package com.jongyeon.practice_media.dto;
 
-import com.jongyeon.practice_media.entity.File;
-import lombok.Getter;
+import lombok.Data;
 
 
-@Getter
+@Data
 public class FileDto {
+    private int idx;
+    private int boardIdx;
     private String originalFileName;
-    private String mediaType;
+    private String storedFilePath;
+    private long fileSize;
 
 }
