@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class File {
+@Builder
+public class MediaFile {
 
         @Id
         @GeneratedValue(strategy= GenerationType.AUTO)
@@ -41,6 +42,8 @@ public class File {
         @Column(nullable=false)
         private String mediaType;
 
+        @Column(nullable = false)
+        private String fileFormat;
 
 
     }
