@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,17 +33,21 @@ public class FileUploadController {
 
     @GetMapping("/fileUpload")
     public String fileUploadPage(){
-
-
         return "fileUpload";
     }
 
     @Autowired
     private FileService fileService;
 
+    @ResponseBody
     @PostMapping("/upload")
     public String uploadFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request, HttpServletResponse response) throws IOException {
         log.info("#############Upload MediaFile#############");
+
+        if(multipartFile.getSize()<=0){
+            log.info("#############Empty MediaFile#############");
+            return "empty";
+        }
 
         System.out.println(request.getRemoteAddr());
         String newFileName, originalFileExtension,contentType,mediaType,path;
@@ -51,9 +56,6 @@ public class FileUploadController {
         originalFileExtension= FilenameUtils.getExtension(multipartFile.getOriginalFilename());
         contentType=multipartFile.getContentType();
 
-        if(multipartFile.getSize()<=0){
-            return "redirect:/fileUpload";
-        }
 
 
         if(contentType.contains("image")){
@@ -68,15 +70,11 @@ public class FileUploadController {
                 return "redirect:/fileUpload";
             }
             log.info("Yes it is");
-
-
-
             mediaType="video";
         }
         else{
             mediaType="Unknown";
         }
-
 
 
         newFileName=Long.toString(System.nanoTime())+"."+originalFileExtension;
@@ -105,6 +103,6 @@ public class FileUploadController {
             FileUtils.deleteQuietly(targetFile);
             e.printStackTrace();
         }
-        return "redirect:/";
+        return "ok";
     }
 }
