@@ -3,9 +3,35 @@
 <head>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script>
+        function fileCheck() {
+            var maxSize  = 100 * 1024 * 1024;
+            var fileSize = 0;
+
+
+
+          if(document.uploadForm.file.value==""){
+              alert("빈 파일 입니다.");
+              location.href="/fileUpload";
+          }
+          else {
+              fileSize=document.uploadForm.file.files[0].size;
+              if(fileSize<maxSize){
+                  UploadFile();
+              }
+              else{
+                  alert("허용 용량 초과입니다.");
+                  location.href="/fileUpload";
+              }
+
+          }
+
+
+        }
         function UploadFile() {
             var form=$('#uploadForm')[0];
             var formData = new FormData(form);
+
+
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
@@ -16,15 +42,14 @@
                 cache: false,
                 timeout: 600000,
                 success: function (data) {
-                    if (data=="ok"){
+                    if (data=="ok") {
                         alert("업로드에 성공하였습니다.");
-                        location.href="/";
+                        location.href = "/";
                     }
-                    else if(data=="empty"){
-                        alert("빈 파일입니다 파일을 지정해주세요");
-                        location.href="/fileUpload";
+                    else if(data=="Not Mp4"){
+                        alert("동영상은 Mp4형식만 지원합니다.");
+                        location.href = "/fileUpload";
                     }
-                    console.log("SUCCESS : ", data);
                 },
                 error: function (e) {
                     console.log("ERROR : ", e);
@@ -37,9 +62,9 @@
 </head>
 <body>
 <h1>파일 업로드</h1>
-<form method="post" enctype="multipart/form-data" id="uploadForm">
+<form method="post" enctype="multipart/form-data" id="uploadForm" name="uploadForm">
     <input type="file" value="파일 선택" name="file"/>
-    <button type="button"  onclick="UploadFile();">TEst</button>
+    <button type="button"  onclick="fileCheck();">TEst</button>
 </form>
 </body>
 </html>

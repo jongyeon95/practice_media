@@ -9,11 +9,10 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,11 +43,6 @@ public class FileUploadController {
     public String uploadFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request, HttpServletResponse response) throws IOException {
         log.info("#############Upload MediaFile#############");
 
-        if(multipartFile.getSize()<=0){
-            log.info("#############Empty MediaFile#############");
-            return "empty";
-        }
-
         System.out.println(request.getRemoteAddr());
         String newFileName, originalFileExtension,contentType,mediaType,path;
 
@@ -67,7 +61,7 @@ public class FileUploadController {
 
             if(!typeStr[typeStr.length-1].equals("mp4")){
                 log.info("No It is "+typeStr[typeStr.length-1]);
-                return "redirect:/fileUpload";
+                return "Not Mp4";
             }
             log.info("Yes it is");
             mediaType="video";
@@ -105,4 +99,5 @@ public class FileUploadController {
         }
         return "ok";
     }
+
 }
