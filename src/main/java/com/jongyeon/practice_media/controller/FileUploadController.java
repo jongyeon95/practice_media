@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -39,7 +41,7 @@ public class FileUploadController {
     private FileService fileService;
 
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request){
+    public String uploadFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request, HttpServletResponse response) throws IOException {
         log.info("#############Upload MediaFile#############");
 
         System.out.println(request.getRemoteAddr());
@@ -49,8 +51,10 @@ public class FileUploadController {
         originalFileExtension= FilenameUtils.getExtension(multipartFile.getOriginalFilename());
         contentType=multipartFile.getContentType();
 
-        if(multipartFile.getSize()<=0)
+        if(multipartFile.getSize()<=0){
             return "redirect:/fileUpload";
+        }
+
 
         if(contentType.contains("image")){
             mediaType="image";
