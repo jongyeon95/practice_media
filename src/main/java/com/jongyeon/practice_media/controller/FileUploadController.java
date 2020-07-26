@@ -56,11 +56,24 @@ public class FileUploadController {
             mediaType="image";
         }
         else if(contentType.contains("video")){
+            String[] typeStr=contentType.split("/");
+            log.info("This is Mp4???");
+
+            if(!typeStr[typeStr.length-1].equals("mp4")){
+                log.info("No It is "+typeStr[typeStr.length-1]);
+                return "redirect:/fileUpload";
+            }
+            log.info("Yes it is");
+
+
+
             mediaType="video";
         }
         else{
             mediaType="Unknown";
         }
+
+
 
         newFileName=Long.toString(System.nanoTime())+"."+originalFileExtension;
         log.info("new file name :"+newFileName);

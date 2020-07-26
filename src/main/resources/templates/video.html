@@ -5,8 +5,26 @@
     <title>image</title>
 </head>
 <body>
-<video width="400" controls>
-    <source th:src="${videoDir}" type="video/mp4">
-</video>
+<table th:border="1px">
+    <thead>
+    <tr>
+        <td>id</td>
+        <td>파일명</td>
+        <td>분류</td>
+        <td>확장자</td>
+    </tr>
+
+    </thead>
+    <tr th:each="list : ${list}">
+        <td th:text="${list.getIdx()}"></td>
+        <td th:text="${list.getOriginalFileName()}"></td>
+        <td th:text="${list.getMediaType()}"></td>
+        <td th:text="${list.getFileExtension()}"></td>
+        <td><video width="400" controls>
+            <source th:src="@{/stream/}+${list.getStoredFileName()}" type="video/mp4">
+        </video></td>
+
+    </tr><br>
+</table>
 </body>
 </html>

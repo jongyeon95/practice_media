@@ -31,7 +31,8 @@ public class IndexController {
 
     @GetMapping("/video")
     public String videoView(Model model){
-        model.addAttribute("videoDir","/videos/test.mp4");
+        List<MediaFile> list= fileService.findAllByMediaType("video");
+        model.addAttribute("list",list);
         return "video";
     }
 }

@@ -30,7 +30,7 @@ public class VideoStreamingController {
 
 
         File path=new File("src\\main\\resources\\static\\videos");
-        File file = new File(path.getAbsolutePath()+"\\"+name+".mp4");
+        File file = new File(path.getAbsolutePath()+"\\"+name);
 
         RandomAccessFile randomFile = new RandomAccessFile(file, "r");
         long rangeStart = 0; //요청 범위의 시작 위치
@@ -39,6 +39,7 @@ public class VideoStreamingController {
 
         //randomFile 을 클로즈 하기 위하여 try~finally 사용
         try{
+            log.info("This is streaming##############");
             //동영상 파일 크기
             long movieSize = randomFile.length();
             //스트림 요청 범위, request의 헤더에서 range를 읽는다.

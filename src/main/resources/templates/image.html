@@ -5,7 +5,6 @@
     <title>image</title>
 </head>
 <body>
-<img src="../../../../mediaFiles/image/57681626397400.jpg">
 <table th:border="1px">
     <thead>
     <tr>
@@ -21,7 +20,7 @@
         <td th:text="${list.getOriginalFileName()}"></td>
         <td th:text="${list.getMediaType()}"></td>
         <td th:text="${list.getFileExtension()}"></td>
-        <td><img th:src="@{/images/}+${list.getStoredFileName()}"></td>
+        <td><img th:src="@{/imageApi/}+${list.getStoredFileName()}"></td>
     </tr><br>
 </table>
 </body>
