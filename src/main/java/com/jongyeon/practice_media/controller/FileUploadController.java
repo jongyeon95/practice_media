@@ -1,18 +1,13 @@
 package com.jongyeon.practice_media.controller;
 
 import com.jongyeon.practice_media.entity.MediaFile;
-import com.jongyeon.practice_media.repository.MediaFileRepository;
 import com.jongyeon.practice_media.service.FileService;
-import jdk.internal.org.jline.utils.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,10 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+
 
 @Slf4j
 @Controller
@@ -41,15 +34,14 @@ public class FileUploadController {
     @ResponseBody
     @PostMapping("/upload")
     public String uploadFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        log.info("#############Upload MediaFile#############");
+        log.info("#############Request upload#############");
 
-        System.out.println(request.getRemoteAddr());
+        //System.out.println(request.getRemoteAddr());
         String newFileName, originalFileExtension,contentType,mediaType,path;
 
 
         originalFileExtension= FilenameUtils.getExtension(multipartFile.getOriginalFilename());
         contentType=multipartFile.getContentType();
-
 
 
         if(contentType.contains("image")){
@@ -67,7 +59,7 @@ public class FileUploadController {
             mediaType="video";
         }
         else{
-            mediaType="Unknown";
+            return "no support";
         }
 
 
@@ -81,7 +73,7 @@ public class FileUploadController {
 
 
         fileService.save(mediaFile);
-        log.info(" file path :"+path);
+        log.info("file path :"+path);
 
         File targetFile = new File(path+newFileName);
         try {
@@ -97,6 +89,7 @@ public class FileUploadController {
             FileUtils.deleteQuietly(targetFile);
             e.printStackTrace();
         }
+        log.info("Success Upload");
         return "ok";
     }
 

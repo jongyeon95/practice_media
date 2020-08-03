@@ -1,6 +1,7 @@
 package com.jongyeon.practice_media.controller;
 
 import com.jongyeon.practice_media.service.FileService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.http.HttpRequest;
 
+@Slf4j
 @RestController
 public class ImageViewController {
 
@@ -24,7 +26,7 @@ public class ImageViewController {
 
     @GetMapping("/imageApi/{name}")
     public byte[] imageApi(@PathVariable("name") String name, HttpServletRequest request) throws IOException {
-
+        log.info("Request view image");
         File path=new File("src\\main\\resources\\static\\images\\"+name);
         InputStream imageStream=new FileInputStream(path.getAbsolutePath());
         byte[] imageByteArray= IOUtils.toByteArray(imageStream);

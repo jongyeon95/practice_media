@@ -8,7 +8,6 @@
             var fileSize = 0;
 
 
-
           if(document.uploadForm.file.value==""){
               alert("빈 파일 입니다.");
               location.href="/fileUpload";
@@ -50,6 +49,10 @@
                         alert("동영상은 Mp4형식만 지원합니다.");
                         location.href = "/fileUpload";
                     }
+                    else if(data=="no support"){
+                        alert("이미지와 mp4 파일형식만 지원합니다.");
+                        location.href = "/fileUpload";
+                    }
                 },
                 error: function (e) {
                     console.log("ERROR : ", e);
@@ -64,18 +67,8 @@
 <h1>파일 업로드</h1>
 <form method="post" enctype="multipart/form-data" id="uploadForm" name="uploadForm">
     <input type="file" value="파일 선택" name="file"/>
-    <button type="button"  onclick="fileCheck();">TEst</button>
+    <button type="button"  onclick="fileCheck();">업로드</button>
 </form>
 </body>
 </html>
 
-
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="ko" xmlns:th="http://www.thymeleaf.org">-->
-<!--<h1>파일 업로드</h1>-->
-<!--<form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">-->
-<!--    <input type="file" value="파일 선택" name="file"/>-->
-<!--    <input type="submit" value="업로드"/>-->
-<!--</form>-->
-<!--</html>-->
