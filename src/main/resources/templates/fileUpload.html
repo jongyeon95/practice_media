@@ -53,9 +53,12 @@
                         alert("이미지와 mp4 파일형식만 지원합니다.");
                         location.href = "/fileUpload";
                     }
+
                 },
-                error: function (e) {
+                error: function (data,e) {
                     console.log("ERROR : ", e);
+                    alert("업로드에 실패하였습니다.");
+                    location.href = "/";
                 }
             });
 
